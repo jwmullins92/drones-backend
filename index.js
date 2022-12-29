@@ -1,5 +1,6 @@
 const express = require('express');
 const mongoose = require('mongoose')
+const cors = require('cors')
 const app = express();
 require('dotenv').config();
 
@@ -7,6 +8,7 @@ const UserModel = require("./models/User")
 
 
 app.use(express.json())
+app.use(cors())
 
 mongoose.connect(`mongodb+srv://my-user:${process.env.MONGO_PASSWORD}@cluster0.itbdo5l.mongodb.net/drone-drop?retryWrites=true&w=majority`, {
     useNewUrlParser: true
@@ -39,8 +41,8 @@ app.post('/user', async (req, res) => {
     console.log(req.body)
     const user = new UserModel(req.body)
     try {
-        await user.save();
-        res.send("inserted data")
+        const newUser = await user.save();
+        res.send(newUser)
     } catch (err) {
         console.log(err)
     }
