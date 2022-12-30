@@ -64,5 +64,5 @@ app.delete('/user/:username', async (req, res) => {
 
 
 app.listen(process.env.PORT || 8080, () => {
-    console.log('Server running on port 3001...')
+    console.log('Server running on port 8080...')
 })
